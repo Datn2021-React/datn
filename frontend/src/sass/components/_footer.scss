@@ -1,0 +1,41 @@
+.footer{
+    .container{
+        background: none;
+    }
+    padding: 70px 0;
+    box-shadow: $box-shadow;
+    font-size: 1.1rem;
+    height: 500px;
+    background-image: linear-gradient( rgba(84, 36, 36, 0.5), rgba(0, 0, 0, 0.5) ),url(https://cdn.pixabay.com/photo/2018/03/21/07/16/learning-3245793_960_720.jpg);
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+
+    &_logo{
+        height: 70px;
+    }
+    &_logo_playstore{
+        height: 50px;
+        
+    }
+    &_logo_Appstore{
+        height: 50px;
+    }
+    &_about{
+        p{
+            margin-bottom: 2rem;
+        }
+    }
+    &_title{
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        font-weight: 600;
+    }
+    &_content{
+        p{
+            margin-bottom: 1.25rem;
+        }
+        
+    }
+}
