@@ -107,7 +107,6 @@ export default function Home() {
 
       {/* policy section */}
 
-      <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
       <Section>
         <SectionBody>
           <Grid col={4} smCol={2} mdCol={1} gap={20}>
