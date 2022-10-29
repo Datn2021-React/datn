@@ -12,9 +12,10 @@ const Product = ({ product }) => {
     value: product.ratings,
     isHalf: true,
   };
+
   return (
     <div className="product-cart">
-      <Link to={`/product/${product._id}`}>
+      <Link to={`/product/${product.name}/${product._id}`}>
         <div className="product-cart_image">
           <img src={product.images[0].url} alt={product.name} />
         </div>
