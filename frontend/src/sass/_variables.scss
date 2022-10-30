@@ -1,3 +1,25 @@
+// fonts
+$thin: lighter;
+$regular: normal;
+$bold: bold;
+$font-family : 'Quicksand';
+// colors
+$white: #fff;
+$border: #e4e4e4;
+$black: #000;
+$text: #00263D;
+$light-bg: #F8F8F8;
+$border-color: #f7f7f7;
+$light-text-color: #adadad;
+$disabled-color: #c3c3c3;
+$box-shadow : 0 4px 12px rgba(199, 197, 197, 0.5);
+
+$primary-color: #a054af;
+$secondary-color: #48b5dc;
+$tertiary-color: #f2c900;
+$danger-color: #f7023f;
+$disabled: #F1F1F1;
+
 $main-bg: #fff;
 $main-color: #4267b2;
 
@@ -22,32 +44,30 @@ $font-family: 'M PLUS Rounded 1c', sans-serif;
 $font-family-login: "Montserrat", sans-serif;
 
 $colors: (
-    "blue": #4267b2,
-    "orange": #fbb96b,
-    "pink": #fe7e73,
-    "white": #fff,
-    "black": #000,
-    "main": $main-color,
+  "blue": #4267b2,
+  "orange": #fbb96b,
+  "pink": #fe7e73,
+  "white": #fff,
+  "black": #000,
+  "main": $main-color,
 );
 
 $mobile-width: 600px;
 $tablet-width: 1024px;
 
-$number: (0, 1, 2, 3, 4, 5, 6, 7, 8);
+$number: (
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+);
 
 $frameColor: #fff;
 $winIndicatorColor: #fff;
 $middleColor: #fff;
-$color_item: 
-  #ba4d4e
-  #1592e8     
-  #14c187     
-  #fc7800   
-  #aac114     
-  #1592e8     
-  #ba4d4e     
-  #1592e8     
-  #14c187     
-  #fc7800     
-  #14c187     
-  #b015e8
+$color_item: #ba4d4e #1592e8 #14c187 #fc7800 #aac114 #1592e8 #ba4d4e #1592e8 #14c187 #fc7800 #14c187 #b015e8

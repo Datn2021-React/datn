@@ -22,12 +22,13 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 import { css } from "styled-components";
 
-const override = css`
+export const override = css`
   display: block;
   margin: 0 auto;
   border-color: red;
   transition: display 0.5s ease;
 `;
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();

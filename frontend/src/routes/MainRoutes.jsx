@@ -9,6 +9,7 @@ import Home from "../pages/Home/Home";
 import News from "../pages/News/News";
 import NotFound from "../pages/NotFound/NotFound";
 import Product from "../pages/Product/Product";
+import ProductDetail from "../pages/ProductDetail";
 import LoginSignUp from "../pages/User/LoginSignUp/LoginSignUp";
 import { loadUser } from "../Redux/actions/userAction";
 import store from "../Redux/store";
@@ -26,6 +27,7 @@ const MainRoutes = () => {
       <Route path="/contact" component={Contact} />
       <Route path="/search" component={CategorySearch} />
       <Route path="/category/:keyword" component={Category} />
+      <Route path="/product/:name/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
       <Route path="/product/:id" exact component={ProductCart} />
       <Route path="/login" exact component={LoginSignUp} />
