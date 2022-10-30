@@ -2,7 +2,7 @@
     @include flex(flex-start, flex-start);
 
     &_filter{
-        width: 20%;
+        width: 50%;
         @include tablet{
             width: unset;
         }

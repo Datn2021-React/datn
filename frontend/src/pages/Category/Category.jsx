@@ -292,6 +292,7 @@ export default function Category({ match }) {
 
         {resultPerPage < productsCount && (
           <Pagination
+            style={{ display: "flex", justifyContent: "center" }}
             loading={loading}
             current={current}
             total={productsCount}
