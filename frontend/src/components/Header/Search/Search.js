@@ -5,6 +5,8 @@ import { search_item } from "../../../assets/fake-data";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import CategorySearch from "./CategorySearch";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getProduct } from "../../../Redux/actions/productAction";
 
 const SearchComponent = styled.div`
   .header__menu__right__item {
@@ -100,9 +102,8 @@ const SearchComponent = styled.div`
   }
 `;
 
-export default function Search(props) {
+export default function Search({ history }) {
   let arrSearchItem = [];
-  const { insertSearchItemUser, removeSearchItem } = props;
   const searchRef = useRef(null);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
@@ -113,23 +114,25 @@ export default function Search(props) {
 
   const searchAll = [...search_item];
 
+  const dispatch = useDispatch();
+
   const handleHeightSearchItem = (items) => {
     const arr_items = items.slice(2);
     return arr_items.length * 50;
   };
 
   const setActiveClass = () => {
-    if (inputSearch) {
-      insertSearchItemUser(inputSearch);
-    }
     if (searchRef.current) {
       searchRef.current.classList.add("active");
       dropdownRef.current.classList.remove("hidden");
     }
+    handleSearch(inputSearch);
   };
 
   const removeActiveClass = () => {
     if (searchRef.current) {
+      dispatch(getProduct());
+
       searchRef.current.classList.remove("active");
       dropdownRef.current.classList.add("hidden");
       inputRef.current.value = "";
@@ -148,82 +151,18 @@ export default function Search(props) {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (
-        !e.target.closest(".header__menu__item__search-wrap") &&
-        !e.target.closest(".header__menu__item__search-dropdown-menu-search")
-      ) {
-        if (dropdownRef.current) {
-          dropdownRef.current.classList.add("hidden");
-          setHeight(110);
-          setStatus(true);
-        }
-      }
-    });
-    return () => {
-      window.removeEventListener("click", null);
-    };
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      if (
-        !e.target.closest(".header__menu__item__search-wrap") &&
-        !e.target.closest(".header__menu__item__search-dropdown-menu-search")
-      ) {
-        if (
-          searchRef.current &&
-          searchRef.current.className ===
-            "header__menu__item__search-wrap active"
-        ) {
-          if (inputRef.current && !inputRef.current.value.length) {
-            searchRef.current.classList.remove("active");
-          } else {
-            searchRef.current.classList.add("active");
-          }
-        }
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.addEventListener("focus", (e) => {
-        if (dropdownRef.current) {
-          dropdownRef.current.classList.remove("hidden");
-        }
-      });
-    }
-    return () => {
-      if (inputRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        inputRef.current.removeEventListener("focus", null);
-      }
-    };
-  }, []);
-
-  const handleHiddenFormSearch = (status) => {
-    if (status) {
-      if (dropdownRef.current) {
-        dropdownRef.current.classList.add("hidden");
-        searchRef.current.classList.remove("active");
-      }
-    }
-  };
-
   const heightSearch = () => {
     return height <= 350 ? height : 350;
   };
 
   const handleImportContentSearch = (data) => {
-    return data ? `/search/${data}` : "#";
+    return data ? `/category` : "";
   };
 
   const handleChangeInputToSearch = (value, e) => {
     if (!e.target.closest(".icon-delete")) {
       setInputSearch(value);
-      insertSearchItemUser(value);
+      // insertSearchItemUser(value);
     }
   };
   const renderUISearch = (arrSearchItem) => {
@@ -236,17 +175,12 @@ export default function Search(props) {
                 key={index}
                 onClick={(e) => handleChangeInputToSearch(item.content, e)}
               >
-                <Link
-                  to={handleImportContentSearch(item.content)}
-                  style={{ width: "100%" }}
-                >
-                  <div className="header__menu__item__search-item-content">
-                    <i className="fad fa-search"></i>
-                    <p className="header__menu__item__search-text">
-                      {item.content}
-                    </p>
-                  </div>
-                </Link>
+                <div className="header__menu__item__search-item-content">
+                  <i className="fad fa-search"></i>
+                  <p className="header__menu__item__search-text">
+                    {item.content}
+                  </p>
+                </div>
               </div>
             );
           } else {
@@ -269,7 +203,7 @@ export default function Search(props) {
                 </Link>
                 <i
                   className="fal fa-times icon-delete"
-                  onClick={() => removeSearchItem(item)}
+                  // onClick={() => removeSearchItem(item)}
                 ></i>
               </div>
             );
@@ -282,26 +216,16 @@ export default function Search(props) {
     setInputSearch(e.target.value);
   };
 
-  const renderUISearchSame = () => {
+  async function handleSearch(inputSearch) {
     if (inputSearch) {
-      arrSearchItem = searchAll.filter((text) => {
-        return text.content.toLowerCase().indexOf(inputSearch) !== -1;
-      });
+      dispatch(getProduct(inputSearch));
     }
-    if (arrSearchItem.length) {
-      return renderUISearch(arrSearchItem);
+  }
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch(inputSearch);
     }
   };
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    arrSearchItem = searchAll.filter((text) => {
-      return text.content.toLowerCase().indexOf(inputSearch) !== -1;
-    });
-    setDisplay(arrSearchItem.length ? "block" : "none");
-  }, [inputSearch]);
-
-  const handleChangeLink = () => (inputSearch ? `/search/${inputSearch}` : "#");
 
   return (
     <SearchComponent>
@@ -311,26 +235,21 @@ export default function Search(props) {
           ref={searchRef}
           id="search"
         >
-          <Link to={handleChangeLink}>
-            <div
-              className="header__menu__item__btn-search"
-              onClick={() => setActiveClass()}
-              // style={{ color: themeItem.text_color }}
-            >
-              <i className="fal fa-search"></i>
-            </div>
-          </Link>
-
           <div
-            className="header__menu__item__input-search"
-            // style={{ color: themeItem.text_color }}
+            className="header__menu__item__btn-search"
+            onClick={() => setActiveClass()}
           >
+            <i className="fal fa-search"></i>
+          </div>
+
+          <div className="header__menu__item__input-search">
             <input
               type="text"
               placeholder="tìm kiếm sản phẩm ..."
               value={inputSearch}
               ref={inputRef}
               onChange={(e) => handleChangeInputSearch(e)}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div
@@ -350,7 +269,7 @@ export default function Search(props) {
               className="header__menu__item__search-history"
               style={{ height: "auto", display: display }}
             >
-              {renderUISearchSame()}
+              {/* {renderUISearchSame()} */}
             </div>
           </div>
         ) : (
@@ -373,7 +292,6 @@ export default function Search(props) {
                 {!status ? "Thu gọn" : "Xem thêm"}
               </Button>
             </div>
-            <CategorySearch handleHiddenFormSearch={handleHiddenFormSearch} />
           </div>
         )}
       </div>

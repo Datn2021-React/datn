@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import User from "../../pages/User/User";
 import Dialogg from "../Dialog/Dialog";
+import SearchComponent from "./Search/Search";
 import Search from "./Search/Search";
 
 const menuNav = [
@@ -92,7 +93,7 @@ const Header = (props) => {
             </div>
             <div className="header_menu_right">
               <div className="header_menu_item header_menu_rifht_item ">
-                <Search
+                <SearchComponent
                   searchItem={searchItem}
                   insertSearchItemUser={insertSearchItemUser}
                   removeSearchItem={removeSearchItem}
