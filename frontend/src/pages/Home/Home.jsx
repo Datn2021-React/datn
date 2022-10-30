@@ -42,6 +42,7 @@ export default function Home() {
 
   useEffect(() => {
     const arr = [];
+    console.log(products);
     products.filter((item) => {
       if (item.category === "laptop") {
         arr.push(item);

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "./LoginSignUp.css";
 import { useDispatch, useSelector } from "react-redux";
 import FaceIcon from "@material-ui/icons/Face";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import {
   clearErrors,
   login,
@@ -13,23 +14,24 @@ import {
 } from "../../../Redux/actions/userAction";
 import { notification } from "antd";
 import AvatarDefault from "../../../assets/images/login/Profile.png";
+import { css } from "styled-components";
 
 const LoginSignUp = (history) => {
   const dispatch = useDispatch();
-  const openNotificationWithIcon = (type) => {
-    notification[type]({
-      message: "Notification",
-      description: "OK",
-    });
-  };
+  // const openNotificationWithIcon = (type) => {
+  //   notification[type]({
+  //     message: "Notification",
+  //     description: "OK",
+  //   });
+  // };
 
   // const notification = useNotification();
-  const { error, loading, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
+  const { error, isAuthenticated } = useSelector((state) => state.user);
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
+
+  const [loading, setLoading] = useState(false);
 
   const [LoginEmail, setLoginEmail] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
@@ -49,6 +51,12 @@ const LoginSignUp = (history) => {
     dispatch(login(LoginEmail, LoginPassword));
     // console.log("Login Form Submit");
   };
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+    transition: display 0.5s ease;
+  `;
 
   const registerDataChang = (e) => {
     if (e.target.name === "avatar") {
@@ -64,6 +72,17 @@ const LoginSignUp = (history) => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+  /// loading
+  useEffect(() => {
+    setLoading(true);
+    document.body.style.overflow = "hidden";
+    setTimeout(() => {
+      if (LoginSignUp) {
+        setLoading(false);
+        document.body.style.overflow = "";
+      }
+    }, 600);
+  }, [LoginSignUp]);
 
   // const redirect = location.search ? location.search.split("=")[1] : "/account";
 
@@ -107,6 +126,16 @@ const LoginSignUp = (history) => {
   };
   return (
     <Fragment>
+      {loading && (
+        <div className="loading__container">
+          <ScaleLoader
+            color={"#2963B3"}
+            loading={loading}
+            css={override}
+            size={200}
+          />
+        </div>
+      )}
       <div className="LoginSignUpContainer">
         <div className="LoginSignUpBox">
           <div>
@@ -142,7 +171,7 @@ const LoginSignUp = (history) => {
               type="submit"
               value="Login"
               className="loginBtn"
-              onClick={() => openNotificationWithIcon("success")}
+              // onClick={() => openNotificationWithIcon("success")}
             />
           </form>
           <form

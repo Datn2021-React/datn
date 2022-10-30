@@ -10,9 +10,9 @@ import { useSelector } from "react-redux";
 
 const App = () => {
   // const { isAuthen, user } = useSelector((state) => state.user);
-  React.useEffect(() => {
-    store.dispatch(loadUser());
-  });
+  // React.useEffect(() => {
+  //   store.dispatch(loadUser());
+  // });
   return (
     <BrowserRouter>
       <Route

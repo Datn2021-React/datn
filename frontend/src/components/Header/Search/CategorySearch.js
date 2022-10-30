@@ -12,7 +12,7 @@ function CategorySearch(props) {
 
   return (
     <div className="header__menu__item__search-category">
-      <p className="header__menu__item__search-category-title">
+      {/* <p className="header__menu__item__search-category-title">
         Danh Mục Nổi Bật
       </p>
       <SectionBody>
@@ -34,7 +34,7 @@ function CategorySearch(props) {
             </Link>
           ))}
         </Grid>
-      </SectionBody>
+      </SectionBody> */}
     </div>
   );
 }
