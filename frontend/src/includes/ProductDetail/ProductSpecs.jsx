@@ -26,17 +26,6 @@ function ProductSpecs(props) {
     data: { product, loading },
   } = props;
 
-  // let description = "";
-  // let allDescription = "";
-  // if (product?.description) {
-  //   allDescription = product.description.split(" ");
-  //   if (state.showStatus === "More" && allDescription.length > 100) {
-  //     let newRemarks = [...allDescription];
-  //     description = newRemarks.splice(0, 95).join(" ") + "...";
-  //   } else {
-  //     description = product.description;
-  //   }
-  // }
   const antIcon = (
     <LoadingOutlined style={{ fontSize: 18, marginRight: 10 }} spin />
   );
@@ -81,7 +70,7 @@ function ProductSpecs(props) {
               <div className="ratings">
                 {product && (
                   <StarRatings
-                    rating={parseFloat(2)}
+                    rating={product.ratings}
                     starDimension="18px"
                     starSpacing="1px"
                     starRatedColor="#f2c900"
@@ -123,35 +112,6 @@ function ProductSpecs(props) {
                         )}
                       </div>
                     </div>
-                    <div className="wish-btn">
-                      {loading ? (
-                        !_.isEmpty(product.hasOnWishlist) ? (
-                          <Popconfirm
-                            title="Are you sure you want to remove this from wishlist?"
-                            onConfirm={() =>
-                              props.removeFromWishList(
-                                product.hasOnWishlist._id
-                              )
-                            }
-                            // onCancel={cancel}
-                            okText="Yes"
-                            cancelText="No"
-                          >
-                            <HeartOutlined />
-                          </Popconfirm>
-                        ) : (
-                          <HeartOutlined
-                            onClick={() => props.addWishListItems(product.slug)}
-                          />
-                        )
-                      ) : (
-                        <Link to={`/login`}>
-                          <HeartOutlined
-                            onClick={() => props.addWishListItems(product.slug)}
-                          />
-                        </Link>
-                      )}
-                    </div>
                   </div>
                 ) : (
                   <div className="price-wish"></div>
@@ -165,10 +125,19 @@ function ProductSpecs(props) {
                   ></div>
                 ) : (
                   <>
-                    <div className="details1">topic 1</div>
+                    <div className="details1">
+                      <i class="fa-solid fa-van-shuttle">Miễn phí vận chuyển</i>
+                      <i class="fa-solid fa-van-shuttle"></i>
+                      <i class="fa-solid fa-house"></i>
+                    </div>
                     <div className="details2">topic 2</div>
-                    <div className="details3">topic 3</div>
-                    <div className="details4">topic 4</div>
+                    <div className="details3">
+                      <i class="fa-light fa-van-shuttle">dêde</i>
+                    </div>
+                    <div className="details4">
+                      {" "}
+                      <i class="fa-regular fa-van-shuttle"></i>
+                    </div>
                   </>
                 )}
               </div>
